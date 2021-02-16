@@ -13,6 +13,8 @@ from docx.parts.story import BaseStoryPart
 from docx.parts.styles import StylesPart
 from docx.shape import InlineShapes
 from docx.shared import lazyproperty
+from docx.oxml.shape import CT_Inline
+from pptx.parts.chart import ChartPart
 
 
 class DocumentPart(BaseStoryPart):
@@ -152,3 +154,21 @@ class DocumentPart(BaseStoryPart):
             styles_part = StylesPart.default(self.package)
             self.relate_to(styles_part, RT.STYLES)
             return styles_part
+
+    def get_or_add_chart(self, chart_type, x, y, cx, cy, chart_data):
+        """
+        Return an (rId, chart) 2-tuple for the chart.
+        Access the chart properties like description in python-pptx documents.
+        """
+        chart_part = ChartPart.new(chart_type, chart_data, self.package)
+        rId = self.relate_to(chart_part, RT.CHART)
+        return rId, chart_part.chart
+
+    def new_chart_inline(self, chart_type, x, y, cx, cy, chart_data):
+        """
+        Return a newly-created `w:inline` element containing the chart
+        with position *x* and *y* and width *cx* and height *y*
+        """
+        rId, chart = self.get_or_add_chart(chart_type, x, y, cx, cy, chart_data)
+        shape_id = self.next_id
+        return CT_Inline.new_chart_inline(shape_id, rId, x, y, cx, cy), chart

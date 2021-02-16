@@ -119,6 +119,7 @@ from .shape import (  # noqa
     CT_PositiveSize2D,
     CT_ShapeProperties,
     CT_Transform2D,
+    CT_Chart,
 )
 register_element_cls('a:blip',        CT_Blip)
 register_element_cls('a:ext',         CT_PositiveSize2D)
@@ -134,6 +135,7 @@ register_element_cls('pic:spPr',      CT_ShapeProperties)
 register_element_cls('wp:docPr',      CT_NonVisualDrawingProps)
 register_element_cls('wp:extent',     CT_PositiveSize2D)
 register_element_cls('wp:inline',     CT_Inline)
+register_element_cls('c:chart',       CT_Chart)
 
 from .styles import CT_LatentStyles, CT_LsdException, CT_Style, CT_Styles  # noqa
 register_element_cls('w:basedOn',        CT_String)
