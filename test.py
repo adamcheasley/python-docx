@@ -1,8 +1,8 @@
 import os
 from docx import Document
 from docx.shared import Pt, Cm
-from pptx.chart.data import CategoryChartData
-from pptx.enum.chart import XL_CHART_TYPE
+from docx.chart.data import CategoryChartData
+from docx.enum.chart import XL_CHART_TYPE
 
 
 DEMO_FILENAME = 'demo.docx'
